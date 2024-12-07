@@ -1,4 +1,5 @@
-let mongoose = require('mongoose');
+// import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
 class Database {
 
