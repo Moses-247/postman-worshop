@@ -27,10 +27,24 @@ mongoose.connect('mongodb+srv://asugam9:yfaff0v9gwrPNkdY@cluster-1.wfp7i.mongodb
     console.error('Error connecting to MongoDB', error);
 });
 
-app.get('/', (req, res) => {
-    res.send('Server');
+app.get('/helloworld' ,(req,res)=>{
+    res.send('my first helloworld');
+    });
+//an api for creating contact resource
+app.post('/create-contact',async(req,res)=>{
+    // const {name,email,phone}=req.body;
+    const newContact=req.body
+    try{
+        const createContact =await contactModel.create(newContact)
+        res.status(201).send('contact created successfully')
+    }
+    catch(err){
+        console.log('error creating contact',err);
+    }
 });
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+ 
