@@ -43,8 +43,61 @@ app.post('/create-contact',async(req,res)=>{
     }
 });
 
+app.patch('/contacts/:id', async(req, res) =>{
+
+    const {id} = req.params
+    try{
+        const updatedContact = await contactModel.findbyIdAndUpdate({_id:id},{...req.body})
+        
+        res.status(200).json({message: 'Contact update succesfully', data: updatedContact})
+    }
+    catch(err){
+        console.log('error updating contact',err);
+    }
+    
+});
+
+app.get('/contacts', async(req, res) =>{
+    try{
+        const allContcats =  await contactModel.find()
+        res.status(200).json({data: allContcats})
+    }
+    catch(err){
+        console.log('error fetching contact',err);
+    }
+});
+
+app.delete('/contacts/:id', async(req, res) =>{
+
+    const {id} = req.params
+    try{
+        const deletedContact = await contactModel.findOneAndDelete({_id:id})
+        
+        res.status(200).json({message: 'Contact deleted succesfully', data: deletedContact})
+    }
+    catch(err){
+        console.log('error deleting contact',err);
+    }
+    
+});
+
+app.get('/contacts/:id', async(req, res) =>{
+
+    const {id} = req.params
+    try{
+        const getContact = await contactModel.findbyId({_id:id})
+        
+        res.status(200).json({message: 'Contact found succesfully', data: getContact})
+    }
+    catch(err){
+        console.log('error finding contact',err);
+    }
+    
+});
+
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
- 
