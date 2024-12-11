@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 
 require('./database');
 
-
-
 // import express from 'express';
 // import mongoose from 'mongoose';
 // import './database.js'; // Make sure to include the extension
@@ -47,7 +45,7 @@ app.patch('/contacts/:id', async(req, res) =>{
 
     const {id} = req.params
     try{
-        const updatedContact = await contactModel.findbyIdAndUpdate({_id:id},{...req.body})
+        const updatedContact = await contactModel.findByIdAndUpdate({_id:id},{...req.body}, {new:true})
         
         res.status(200).json({message: 'Contact update succesfully', data: updatedContact})
     }
@@ -85,7 +83,7 @@ app.get('/contacts/:id', async(req, res) =>{
 
     const {id} = req.params
     try{
-        const getContact = await contactModel.findbyId({_id:id})
+        const getContact = await contactModel.findById({_id:id})
         
         res.status(200).json({message: 'Contact found succesfully', data: getContact})
     }
